@@ -3,6 +3,8 @@ import requests
 from random import randint
 from time import sleep
 
+# Bilbo mckenna
+
 # URl to web scrap from.
 # in this example we web scrap graphics cards from Newegg.com
 # https://www.daft.ie/property-for-sale/dublin?pageSize=20&from=0
