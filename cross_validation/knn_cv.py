@@ -1,6 +1,6 @@
+#KNN Regression Cross-Validation
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 from cv_functions import knn_cross_validation, save_plot
 
 #Taking in Data
