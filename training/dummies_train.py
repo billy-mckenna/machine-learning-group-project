@@ -1,6 +1,6 @@
-#KNN Regression Training
+#Lasso Regression Training
 import sys
-from sklearn.neighbors import KNeighborsRegressor
+from sklearn.dummy import DummyRegressor
 from sklearn.preprocessing import PolynomialFeatures
 from joblib import dump
 sys.path.insert(0, './data')
@@ -8,25 +8,22 @@ from data_functions import csv_to_Xy
 
 #Arguments passed from user
 data = sys.argv[1]
-neighbours = int(sys.argv[2])
-weights = sys.argv[3]
-try:
-    order = int(sys.argv[4])
-except:
-    order = 1
 
 #Taking in Data
 X, y = csv_to_Xy("data/processed_data/processed_data" + data + "_train.csv")
 
 #Increase order of the model
-Poly = PolynomialFeatures(order)
+Poly = PolynomialFeatures(1)
 X_poly = Poly.fit_transform(X)
 
 #Define Model
-model = KNeighborsRegressor(n_neighbors=neighbours,weights=weights)
+mean_model = DummyRegressor(strategy="mean")
+median_model = DummyRegressor(strategy="median")
 
 #Train Model
-model.fit(X_poly,y)
+mean_model.fit(X_poly, y)
+median_model.fit(X_poly, y)
 
 #Save Model
-dump(model, 'models/knn_model.joblib')
+dump(mean_model, 'models/mean_dummy_model.joblib')
+dump(median_model, 'models/median_dummy_model.joblib')
