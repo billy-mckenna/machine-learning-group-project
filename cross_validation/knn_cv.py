@@ -1,14 +1,13 @@
 #KNN Regression Cross-Validation
-import numpy as np
-import pandas as pd
+import sys
 from cv_functions import knn_cross_validation, save_plot
+from data_functions import csv_to_Xy
+
+#Receive desired dataset from user
+data = sys.argv[1]
 
 #Taking in Data
-df  = pd.read_csv("test_data.csv", parse_dates=True, sep=',')
-X1  = df.iloc[:,0]
-X2  = df.iloc[:,1]
-X   = np.column_stack((X1,X2))
-y   = df.iloc[:,2]
+X, y = csv_to_Xy("processed_data/processed_data" + data + "train.csv")
 
 #Choose the range of neighbours you want to use
 neighbors_range = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 15, 17, 19, 21, 23, 24, 25, 26, 27, 29, 31]
