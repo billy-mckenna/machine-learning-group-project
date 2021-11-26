@@ -25,5 +25,5 @@ mean_model.fit(X_poly, y)
 median_model.fit(X_poly, y)
 
 #Save Model
-dump(mean_model, 'models/mean_dummy_model.joblib')
-dump(median_model, 'models/median_dummy_model.joblib')
+dump(mean_model, 'models/mean_dummy_model' + data + '.joblib')
+dump(median_model, 'models/median_dummy_model' + data + '.joblib')

@@ -29,4 +29,4 @@ model = KNeighborsRegressor(n_neighbors=neighbours,weights=weights)
 model.fit(X_poly,y)
 
 #Save Model
-dump(model, 'models/knn_model.joblib')
+dump(model, 'models/knn_model' + data + '.joblib')
