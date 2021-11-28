@@ -25,4 +25,4 @@ model = Ridge(1/(2*C))
 model.fit(X_poly, y)
 
 #Save Model
-dump(model, 'models/ridge_model.joblib')
+dump(model, 'models/ridge_model' + data + '.joblib')

@@ -25,4 +25,4 @@ model = Lasso(1/(2*C))
 model.fit(X_poly, y)
 
 #Save Model
-dump(model, 'models/lasso_model.joblib')
+dump(model, 'models/lasso_model' + data + '.joblib')
