@@ -107,22 +107,23 @@ def knn_cross_validation(X, y, neighbors_range, weights):
 
 def save_plot(filepath, range, title, x_label, mean_mse, std_mse, mean_mae, std_mae, mean_r2, std_r2):
     #Plot Cross-Validation Results
-    fig = plt.figure(figsize=(10,10))
+    fig = plt.figure(figsize=(21,14))
+    plt.rcParams.update({'font.size': 32})
 
-    sp1 = fig.add_subplot(311)
-    sp1.set_title(title)
+    sp1 = fig.add_subplot(111)
+    #sp1.set_title(title)
     sp1.errorbar(range, mean_mse, yerr=std_mse)
     sp1.set_xlabel(x_label)
     sp1.set_ylabel('Mean Squared Error')
 
-    sp2 = fig.add_subplot(312)
-    sp2.errorbar(range, mean_mae, yerr=std_mae)
-    sp2.set_xlabel(x_label)
-    sp2.set_ylabel('Mean Absolute Error')
+    # sp2 = fig.add_subplot(312)
+    # sp2.errorbar(range, mean_mae, yerr=std_mae)
+    # sp2.set_xlabel(x_label)
+    # sp2.set_ylabel('Mean Absolute Error')
 
-    sp2 = fig.add_subplot(313)
-    sp2.errorbar(range, mean_r2, yerr=std_r2)
-    sp2.set_xlabel(x_label)
-    sp2.set_ylabel('R2')
+    # sp2 = fig.add_subplot(313)
+    # sp2.errorbar(range, mean_r2, yerr=std_r2)
+    # sp2.set_xlabel(x_label)
+    # sp2.set_ylabel('R2')
 
     fig.savefig(filepath)

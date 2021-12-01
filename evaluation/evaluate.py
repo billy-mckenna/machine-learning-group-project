@@ -12,12 +12,12 @@ try:
 except:
     order = 1
 
-X, y = data_functions.csv_to_Xy("data/processed_data/processed_data" + data + ".csv")
+X, y = data_functions.csv_to_Xy("data/processed_data/processed_data" + data + "_test.csv")
 
 Poly = PolynomialFeatures(order)
 X_poly = Poly.fit_transform(X)
 
-model = load("models/" + model + "_model.joblib")
+model = load("models/" + model + "_model" + data + ".joblib")
 
 y_pred = model.predict(X_poly)
 
