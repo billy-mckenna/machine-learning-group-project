@@ -18,7 +18,7 @@ mean_mse_uniform, std_mse_uniform, mean_mae_uniform, std_mae_uniform, mean_r2_un
 mean_mse_distance, std_mse_distance, mean_mae_distance, std_mae_distance, mean_r2_distance, std_r2_distance = knn_cross_validation(X, y, neighbors_range, 'distance')
 
 #Save plots of Cross-Validation Results
-x_label        = "K"
+x_label        = "k"
 title_uniform  = "5-fold Cross Validation, K-Nearest-Neighbours, Uniform Weights"
 title_distance = "5-fold Cross Validation, K-Nearest-Neighbours, Distance Weights"
 

@@ -15,7 +15,7 @@ except:
     order = 1
 
 #Convert the dataset into a feature matrix and target vector.
-X, y = data_functions.csv_to_Xy("data/processed_data/processed_data" + data + ".csv")
+X, y = data_functions.csv_to_Xy("data/processed_data/processed_data" + data + "_test.csv")
 
 #Augment the matrix to have the required polynomial order
 Poly = PolynomialFeatures(order)

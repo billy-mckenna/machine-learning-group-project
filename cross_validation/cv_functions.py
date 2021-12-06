@@ -123,7 +123,7 @@ def save_plot(filepath, range, title, x_label, mean_mse, std_mse, mean_mae, std_
     sp1 = fig.add_subplot(111) #Change to fig.add_subplot(311) to include the other 2 subplots 
     sp1.errorbar(range, mean_mse, yerr=std_mse)
     sp1.set_xlabel(x_label)
-    sp1.set_ylabel('Mean Squared Error')
+    sp1.set_ylabel('MSE')
 
     #Uncomment the below code to view MAE and R^2 performance during CV.
     # sp2 = fig.add_subplot(312)
