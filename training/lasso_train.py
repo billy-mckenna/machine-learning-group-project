@@ -14,7 +14,7 @@ C = int(sys.argv[3])
 #Taking in Data
 X, y = csv_to_Xy("data/processed_data/processed_data" + data + "_train.csv")
 
-#Increase order of the model
+#Select the polynomial order of the features
 Poly = PolynomialFeatures(order)
 X_poly = Poly.fit_transform(X)
 
@@ -23,6 +23,13 @@ model = Lasso(1/(2*C))
 
 #Train Model
 model.fit(X_poly, y)
+
+#Useful print statements for investigating features, parameters and biases
+"""
+print(Poly.get_feature_names())
+print("Coefs: ", model.coef_)
+print("Bias: ", model.intercept_)
+"""
 
 #Save Model
 dump(model, 'models/lasso_model' + data + '.joblib')
