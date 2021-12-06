@@ -52,7 +52,7 @@ def penalty_cross_validation(X, y, order, C_range, model_type):
     
     for Ci in C_range:
         if model_type == "ridge":
-            model  = Ridge(alpha=(1/(2*Ci)))
+            model  = Ridge(alpha=(1/(2*Ci)),solver='svd')
         else:
             model  = Lasso(alpha=(1/(2*Ci)))
         

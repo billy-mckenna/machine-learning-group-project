@@ -19,7 +19,7 @@ except:
 X, y = csv_to_Xy("data/processed_data/processed_data" + data + "_train.csv")
 
 #Cross Validation for model order selection
-order_range = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+order_range = [1, 2, 3, 4, 5]#, 6, 7, 8, 9, 10]
 mean_mse_order, std_mse_order, mean_mae_order, std_mae_order, mean_r2_order, std_r2_order = order_cross_validation(X, y, order_range, c, "ridge")
 
 #Plot Cross-Validation Results

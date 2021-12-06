@@ -19,7 +19,7 @@ Poly = PolynomialFeatures(order)
 X_poly = Poly.fit_transform(X)
 
 #Define Model
-model = Lasso(1/(2*C))
+model = Lasso(alpha=1/(2*C))
 
 #Train Model
 model.fit(X_poly, y)
