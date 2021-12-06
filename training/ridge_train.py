@@ -14,15 +14,22 @@ C = int(sys.argv[3])
 #Taking in Data
 X, y = csv_to_Xy("data/processed_data/processed_data" + data + "_train.csv")
 
-#Increase order of the model
+#Select the polynomial order of the features
 Poly = PolynomialFeatures(order)
 X_poly = Poly.fit_transform(X)
 
 #Define Model
-model = Ridge(1/(2*C))
+model = Ridge(1/(2*C),solver='svd')
 
 #Train Model
 model.fit(X_poly, y)
+
+#Useful print statements for investigating features, parameters and biases
+"""
+print(Poly.get_feature_names())
+print("Coefs: ", model.coef_)
+print("Bias: ", model.intercept_)
+"""
 
 #Save Model
 dump(model, 'models/ridge_model' + data + '.joblib')

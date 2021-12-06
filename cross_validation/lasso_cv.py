@@ -4,7 +4,7 @@ from cv_functions import order_cross_validation, penalty_cross_validation, save_
 sys.path.insert(0, './data')
 from data_functions import csv_to_Xy
 
-#Receive desired dataset from user
+#Receive desired dataset and optional settings from user
 data = sys.argv[1]
 try:
     order = int(sys.argv[2])
@@ -19,8 +19,7 @@ except:
 X, y = csv_to_Xy("data/processed_data/processed_data" + data + "_train.csv")
 
 #Cross Validation for model order selection
-#order_range = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] # Dataset 5
-order_range = [1, 2, 3, 4, 5] # Dataset 2
+order_range = [1, 2, 3, 4, 5]
 mean_mse_order, std_mse_order, mean_mae_order, std_mae_order, mean_r2_order, std_r2_order = order_cross_validation(X, y, order_range, c, "lasso")
 
 #Plot Cross-Validation Results
@@ -30,9 +29,7 @@ save_plot("cross_validation/plots/lasso_cv_order" + data + "_2.jpg", order_range
 mean_mae_order, std_mae_order, mean_r2_order, std_r2_order)
 
 #Cross Validation for C value selection
-#C_range = [50, 75, 100, 125, 150, 175, 200, 225, 250, 275, 300, 500, 750, 1000, 1500, 2000, 5000] # Round 1
-C_range = [1, 5, 10, 50, 100, 200, 500, 1000, 1500, 2000, 5000] # Round 2
-
+C_range = [1, 5, 10, 50, 100, 200, 500, 1000, 1500, 2000, 5000]
 mean_mse_C, std_mse_C, mean_mae_C, std_mae_C, mean_r2_C, std_r2_C = penalty_cross_validation(X, y, order, C_range, "lasso")
 
 #Plot Cross-Validation Results

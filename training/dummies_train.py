@@ -12,7 +12,7 @@ data = sys.argv[1]
 #Taking in Data
 X, y = csv_to_Xy("data/processed_data/processed_data" + data + "_train.csv")
 
-#Increase order of the model
+#Select the polynomial order of the features
 Poly = PolynomialFeatures(1)
 X_poly = Poly.fit_transform(X)
 
