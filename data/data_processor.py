@@ -42,7 +42,7 @@ def map_location_to_mean_price(input_data):
     # Takes in data, encodes location and returns new data frame
     df = input_data.copy()
     X1 = df.iloc[:, 1]  # Location
-    mean_prices_locations = pd.read_csv('misc_data_files/mean_price_for_location.csv')
+    mean_prices_locations = pd.read_csv('./data/misc_data_files/mean_price_for_location.csv')
     for i in range(0, len(X1), 1):
         mean_price_location = mean_prices_locations.query(f'Zone=={X1[i]}')
         X1[i] = mean_price_location.iloc[:, 1]
@@ -96,7 +96,7 @@ def encode_approach2(input_data):
 default_cols = ['Price', 'Location', 'Beds', 'Baths', 'Square Area', 'Type']
 
 # Read in cleaned data and split into train and test
-clean_data = pd.read_csv('raw_data/daft_data_clean.csv')
+clean_data = pd.read_csv('./data/raw_data/daft_data_clean.csv')
 training_data, test_data = train_test_split(clean_data)
 
 # location and property type one hot encoded, scaled(0, 1)
@@ -104,13 +104,13 @@ encoded_data = encode_approach1(clean_data)
 encoded_data = min_max_scaler(encoded_data, 0, 1)
 training_encoded_data = encoded_data.iloc[training_data.index, :]
 test_encoded_data = encoded_data.iloc[test_data.index, :]
-training_encoded_data.to_csv('processed_data/processed_data1_train.csv', index=False)
-test_encoded_data.to_csv('processed_data/processed_data1_test.csv', index=False)
+training_encoded_data.to_csv('./data/processed_data/processed_data1_train.csv', index=False)
+test_encoded_data.to_csv('./data/processed_data/processed_data1_test.csv', index=False)
 
 # location mapped to mean price value and property type one hot encoded, scaled(0, 1)
 encoded_data = encode_approach2(clean_data)
 encoded_data = min_max_scaler(encoded_data, 0, 1)
 training_encoded_data = encoded_data.iloc[training_data.index, :]
 test_encoded_data = encoded_data.iloc[test_data.index, :]
-training_encoded_data.to_csv('processed_data/processed_data2_train.csv', index=False)
-test_encoded_data.to_csv('processed_data/processed_data2_test.csv', index=False)
+training_encoded_data.to_csv('./data/processed_data/processed_data2_train.csv', index=False)
+test_encoded_data.to_csv('./data/processed_data/processed_data2_test.csv', index=False)

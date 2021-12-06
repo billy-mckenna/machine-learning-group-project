@@ -7,10 +7,10 @@
 ## Run Data Scripts  
 
 ### Scrape the data from the web
-```python data/WebScraper.py```
+```python data/web_scraper.py```
 
 ### Process the scraped data
-```python data/DataProcessor.py```
+```python data/data_processor.py```
 
 ## Cross-validation
 ### K-Nearest Neighbours Regression

@@ -8,24 +8,24 @@ import csv
 URL = 'https://www.daft.ie/property-for-sale/dublin?pageSize=20&from='
 
 price_list = []
-address_list = []
+location_list = []
 beds_list = []
 baths_list = []
-footage_list = []
+square_area_list = []
 type_list = []
 
 Price_list = []
-Address_list = []
+Location_list = []
 Beds_list = []
 Baths_list = []
-Footage_list = []
+Square_area_list = []
 Type_list = []
 
 # All the Dublin zones, 6W si given the number 25 int eh clean data
 Dublin_zones = ['1', '2', '3', '4', '5', '6', '6W', '7', '8', '9', '10', '11',
                 '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24']
 
-fieldnames = ['Price', 'Address', 'Beds', 'Baths', 'Footage', 'Type']
+fieldnames = ['Price', 'Location', 'Beds', 'Baths', 'Square Area', 'Type']
 
 
 def write_to_csv(list_input, name):
@@ -39,9 +39,9 @@ def write_to_csv(list_input, name):
 
 
 # Write headers to two csv files
-write_to_csv(fieldnames, "daft_data.csv")
-write_to_csv(fieldnames, "daft_data_clean.csv")
-num_pages = 150
+write_to_csv(fieldnames, './data/raw_data/daft_data.csv')
+write_to_csv(fieldnames, './data/raw_data/daft_data_clean.csv')
+num_pages = 2
 for page in range(0, num_pages):
     print(page)
     # get the info on each page then move onto the next one
@@ -60,34 +60,34 @@ for page in range(0, num_pages):
             temp[1] = temp[1].replace(',', '')
             clean_price = int(temp[1])
             price_list.append(price_item)
-            address = title_block.find('p', attrs={'data-testid': 'address'})
+            location = title_block.find('p', attrs={'data-testid': 'address'})
             beds = title_block.find('p', attrs={'data-testid': 'beds'})
             baths = title_block.find('p', attrs={'data-testid': 'baths'})
-            footage = title_block.find('p', attrs={'data-testid': 'floor-area'})
+            square_area = title_block.find('p', attrs={'data-testid': 'floor-area'})
             ptype = title_block.find('p', attrs={'data-testid': 'property-type'})
-            if address is None:
-                address_item = 'N/A'
-                address_list.append('N/A')
+            if location is None:
+                location_item = 'N/A'
+                location_list.append('N/A')
                 flag_missing_value = True
             else:
-                address_item = address.get_text().strip()
-                address_list.append(address_item)
-                temp = address_item.split(',')
+                location_item = location.get_text().strip()
+                location_list.append(location_item)
+                temp = location_item.split(',')
                 temp = temp[len(temp) - 1]
                 temp = temp.split()
                 for zone in Dublin_zones:
                     if len(temp) > 1:
                         if temp[1] == zone:
                             if zone == '6W':
-                                clean_address = 25
+                                clean_location = 25
                             else:
-                                clean_address = int(temp[1])
+                                clean_location = int(temp[1])
                             break
                         elif zone == Dublin_zones[len(Dublin_zones) - 1]:
-                            clean_address = 'N/A'
+                            clean_location = 'N/A'
                             flag_missing_value = True
                     else:
-                        clean_address = 'N/A'
+                        clean_location = 'N/A'
                         flag_missing_value = True
             if beds is None:
                 beds_item = 'N/A'
@@ -129,31 +129,31 @@ for page in range(0, num_pages):
                     num_ptype = 7
                     flag_missing_value = True
                 type_list.append(ptype_item)
-            if footage is None:
-                footage_item = 'N/A'
-                footage_list.append('N/A')
+            if square_area is None:
+                square_area_item = 'N/A'
+                square_area_list.append('N/A')
                 flag_missing_value = True
             elif ptype_item != 'Site':
-                footage_item = footage.get_text().strip()
-                temp = footage_item.split()
+                square_area_item = square_area.get_text().strip()
+                temp = square_area_item.split()
                 if flag_missing_value is False:
-                    num_footage = int(temp[0])
-                    footage_list.append(footage_item)
+                    num_square_area = int(temp[0])
+                    square_area_list.append(square_area_item)
             else:
                 flag_missing_value = True
-                footage_item = 'N/A'
-                footage_list.append('N/A')
-            write_to_csv([price_item, address_item, beds_item, baths_item, footage_item, ptype_item], "daft_data.csv")
+                square_area_item = 'N/A'
+                square_area_list.append('N/A')
+            write_to_csv([price_item, location_item, beds_item, baths_item, square_area_item, ptype_item], './data/raw_data/daft_data.csv')
             if flag_missing_value == False:
-                write_to_csv([clean_price, clean_address, num_beds, num_baths, num_footage, num_ptype], "daft_data_clean.csv")
+                write_to_csv([clean_price, clean_location, num_beds, num_baths, num_square_area, num_ptype], "./data/raw_data/daft_data_clean.csv")
     sleep(randint(2, 10))
 
 
 print(price_list); print(len(price_list))
-print(address_list); print(len(address_list))
+print(location_list); print(len(location_list))
 print(beds_list); print(len(beds_list))
 print(baths_list); print(len(baths_list))
-print(footage_list); print(len(footage_list))
+print(square_area_list); print(len(square_area_list))
 print(type_list); print(len(type_list))
 
 
