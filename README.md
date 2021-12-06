@@ -5,7 +5,7 @@
 ```pip install -r requirements.txt```
 
 ## Run Data Scripts  
-
+Please not that running the data scripts will overwrite the data.
 ### Scrape the data from the web
 ```python data/web_scraper.py```
 
