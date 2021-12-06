@@ -67,11 +67,11 @@ def encode_approach1(input_data):
     encoded_property_type_data = one_hot_encode_property_type(original_data)
     property_type_cols = encoded_property_type_data.columns.tolist()
     property_type_cols.sort()
-    data = replace_data(original_data, encoded_property_type_data, 5)
+    data = replace_data(original_data, encoded_property_type_data, 6)
     data = replace_data(data, encoded_location_data, 1)
     cols = default_cols[0:1]
     cols = np.append(cols, location_cols)
-    cols = np.append(cols, default_cols[2:4])
+    cols = np.append(cols, default_cols[2:5])
     cols = np.append(cols, property_type_cols)
     data = data[cols]
     return data
@@ -84,63 +84,33 @@ def encode_approach2(input_data):
     encoded_property_type_data = one_hot_encode_property_type(original_data)
     property_type_cols = encoded_property_type_data.columns.tolist()
     property_type_cols.sort()
-    data = replace_data(original_data, encoded_property_type_data, 5)
+    data = replace_data(original_data, encoded_property_type_data, 6)
     data = replace_data(data, encoded_location_data, 1)
-    cols = default_cols[0:4]
+    cols = default_cols[0:5]
     cols = np.append(cols, property_type_cols)
     data = data[cols]
     return data
 
 
 # Set Column names of data
-default_cols = ['Price', 'Address', 'Beds', 'Baths', 'Type']
+default_cols = ['Price', 'Location', 'Beds', 'Baths', 'Square Area', 'Type']
 
 # Read in cleaned data and split into train and test
-clean_data = pd.read_csv('daft_data_clean.csv')
+clean_data = pd.read_csv('raw_data/daft_data_clean.csv')
 training_data, test_data = train_test_split(clean_data)
 
-# location and property type one hot encoded, no scaling
+# location and property type one hot encoded, scaled(0, 1)
 encoded_data = encode_approach1(clean_data)
+encoded_data = min_max_scaler(encoded_data, 0, 1)
 training_encoded_data = encoded_data.iloc[training_data.index, :]
 test_encoded_data = encoded_data.iloc[test_data.index, :]
 training_encoded_data.to_csv('processed_data/processed_data1_train.csv', index=False)
 test_encoded_data.to_csv('processed_data/processed_data1_test.csv', index=False)
 
-# location and property type one hot encoded, scaled(0, 1)
-encoded_data = encode_approach1(clean_data)
-encoded_data = data = min_max_scaler(encoded_data, 0, 1)
+# location mapped to mean price value and property type one hot encoded, scaled(0, 1)
+encoded_data = encode_approach2(clean_data)
+encoded_data = min_max_scaler(encoded_data, 0, 1)
 training_encoded_data = encoded_data.iloc[training_data.index, :]
 test_encoded_data = encoded_data.iloc[test_data.index, :]
 training_encoded_data.to_csv('processed_data/processed_data2_train.csv', index=False)
 test_encoded_data.to_csv('processed_data/processed_data2_test.csv', index=False)
-
-# location and property type one hot encoded, scaled(-1, 1)
-encoded_data = encode_approach1(clean_data)
-encoded_data = data = min_max_scaler(encoded_data, -1, 1)
-training_encoded_data = encoded_data.iloc[training_data.index, :]
-test_encoded_data = encoded_data.iloc[test_data.index, :]
-training_encoded_data.to_csv('processed_data/processed_data3_train.csv', index=False)
-test_encoded_data.to_csv('processed_data/processed_data3_test.csv', index=False)
-
-# location mapped to mean price value and property type one hot encoded, no scaling
-encoded_data = encode_approach2(clean_data)
-training_encoded_data = encoded_data.iloc[training_data.index, :]
-test_encoded_data = encoded_data.iloc[test_data.index, :]
-training_encoded_data.to_csv('processed_data/processed_data4_train.csv', index=False)
-test_encoded_data.to_csv('processed_data/processed_data4_test.csv', index=False)
-
-# location mapped to mean price value and property type one hot encoded, scaled(0, 1)
-encoded_data = encode_approach2(clean_data)
-encoded_data = data = min_max_scaler(encoded_data, 0, 1)
-training_encoded_data = encoded_data.iloc[training_data.index, :]
-test_encoded_data = encoded_data.iloc[test_data.index, :]
-training_encoded_data.to_csv('processed_data/processed_data5_train.csv', index=False)
-test_encoded_data.to_csv('processed_data/processed_data5_test.csv', index=False)
-
-# location and mean price value and property type one hot encoded, scaled(-1, 1)
-encoded_data = encode_approach2(clean_data)
-encoded_data = data = min_max_scaler(encoded_data, -1, 1)
-training_encoded_data = encoded_data.iloc[training_data.index, :]
-test_encoded_data = encoded_data.iloc[test_data.index, :]
-training_encoded_data.to_csv('processed_data/processed_data6_train.csv', index=False)
-test_encoded_data.to_csv('processed_data/processed_data6_test.csv', index=False)
